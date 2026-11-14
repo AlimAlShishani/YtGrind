@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.venv/
+# Medien gehoeren nicht ins Git
+library/
+projects/
+*.mp4
+*.mov
+*.mkv
+*.wav
+*.words.json

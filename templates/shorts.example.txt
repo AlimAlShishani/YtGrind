@@ -1,0 +1,8 @@
+# Zeitliste fuer: python -m ytgrind shorts <video.mp4> --spec shorts.txt
+# Format:  Start - Ende | Hook-Text (oben eingeblendet) | Optionen (optional)
+# Zeit: 90 | 1:30 | 01:02:03        Optionen: mode=blur|crop  x=0..1  subs=on|off  hook=on|off
+# Ziel: 30-60 Sekunden pro Short, 7 Stueck pro langem Video.
+
+00:00:05 - 00:00:40 | The worst take of the year
+00:02:10 - 00:02:55 | This mob is NOT S-tier | mode=crop x=0.35
+00:05:30 - 00:06:10 | Chat, we need to talk
