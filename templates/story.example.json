@@ -1,0 +1,45 @@
+{
+  "title": "The Save File That Wasn't Mine",
+  "style": "moody stylized digital illustration, cinematic lighting, muted colors with one neon accent, no text in the image",
+  "characters": {
+    "Mia": "a tired 20-something gamer with messy black hair and an oversized green hoodie"
+  },
+  "voice": {
+    "provider": "elevenlabs",
+    "voice_id": "HIER-DEINE-VOICE-ID",
+    "model_id": "eleven_multilingual_v2",
+    "stability": 0.45,
+    "similarity_boost": 0.75
+  },
+  "scenes": [
+    {
+      "narration": "At 3 a.m., Mia found a save file on her old console that she never created.",
+      "image_prompt": "a dim bedroom, an old console glowing in the dark, a menu showing one unfamiliar save slot",
+      "characters": ["Mia"]
+    },
+    {
+      "narration": "Slot one. Playtime: 412 hours. Last played: tomorrow.",
+      "image_prompt": "extreme close-up of a game menu screen, glitching numbers, neon cyan accent"
+    },
+    {
+      "narration": "She told herself it was a bug. Consoles do that. Dates break. Memory corrupts. She loaded it anyway, because that is what everyone does.",
+      "image_prompt": "Mia leaning toward a TV, controller in hand, face lit blue by the screen",
+      "characters": ["Mia"],
+      "motion": "zoom_in"
+    },
+    {
+      "narration": "The game opened in her bedroom. Her actual bedroom. Same poster, same cracked window. The character standing in it wore her hoodie.",
+      "image_prompt": "a video game render of a realistic bedroom with a character in a green hoodie standing with their back turned"
+    },
+    {
+      "narration": "Then the character turned around, looked straight out of the screen, and typed one line into the chat. Don't save over this.",
+      "image_prompt": "a character in a green hoodie facing the viewer, a chat box with a short line of text implied, eerie glow",
+      "characters": ["Mia"]
+    },
+    {
+      "narration": "Mia did what she always does. She pressed save.",
+      "image_prompt": "a lone finger above a glowing save button, the room around it dark and silent",
+      "pause": 1.0
+    }
+  ]
+}

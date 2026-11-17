@@ -3,6 +3,8 @@
 Werkzeuge + Pläne für einen englischsprachigen Gaming-Commentary-Kanal (Rankings/Tier-Lists, eigene Stimme, schneller Meme-Schnitt).
 Ziel: **5–7 Std./Woche**, 1 langes Video alle 2 Wochen + 1 Short pro Tag auf YouTube Shorts, TikTok und Reels.
 
+**Zwei Richtungen:** (1) Gaming-Commentary mit eigener Stimme (Docs 01–04), (2) **KI-Pipeline**: du gibst die Idee, KI macht Skript, Stimme, Bilder und Schnitt (`docs/05-ki-pipeline.md`).
+
 Plattform: Windows · DaVinci Resolve · AMD-GPU · Python 3.10+ · ffmpeg.
 
 ## Was ist drin
@@ -14,7 +16,8 @@ Plattform: Windows · DaVinci Resolve · AMD-GPU · Python 3.10+ · ffmpeg.
 | `docs/02-ranking-vorlage.md` | Aufbau eines Ranking-Videos, Eintrags-Muster, Hook |
 | `docs/03-content-kalender.md` | Monat 1: 4 Ranking-Videos + 28 Shorts (+ Variante B für den 2-Wochen-Rhythmus) |
 | `docs/04-hooks-und-titel.md` | Hook-Formeln, Titel- und Thumbnail-Ideen |
-| `templates/` | Skript-Vorlage, `shorts.txt`-Vorlage |
+| `docs/05-ki-pipeline.md` | KI-Story-Pipeline: Idee → `story.json` → Video, Aufbau-Varianten, Prüfliste |
+| `templates/` | Skript-Vorlage, `shorts.txt`-Vorlage, `story.example.json` |
 
 ## Schnellstart (Windows, PowerShell)
 
@@ -36,6 +39,7 @@ python -m ytgrind new "Ranking every Minecraft mob" --date 2026-11-20
 | `shorts <video> --spec shorts.txt` | Shorts (1080×1920) per Zeitliste: Zuschnitt `blur`/`crop`, Untertitel, Hook-Text, Lautheit −14 LUFS |
 | `subs <video> [--ass out.ass]` | Whisper-Transkription (gecacht) bzw. ASS-Untertitel |
 | `lib init / scan / tag / find / check` | Meme-/SFX-Bibliothek mit Ordnern, Tags, Quelle/Lizenz, Längen-Check (≤ 3 s) |
+| `story prompts / check / build <story.json>` | KI-Pipeline: Bild-Prompts, Tempo-/Template-Check, Video mit KI-Stimme (ElevenLabs), Zoom/Pan und Untertiteln; Stimme wird gecacht |
 | `new "<Titel>"` | Projektordner + Skriptvorlage |
 | `info <datei>` | Dateiinfo + Encoder-Erkennung |
 

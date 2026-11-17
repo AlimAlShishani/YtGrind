@@ -7,7 +7,7 @@ import sys
 from datetime import date
 from pathlib import Path
 
-from . import library, project, shorts, silence
+from . import library, project, shorts, silence, story
 from .common import ToolError, probe, fmt_time
 
 
@@ -84,6 +84,25 @@ def cmd_lib(a: argparse.Namespace) -> None:
             sys.exit(1)
 
 
+def cmd_story(a: argparse.Namespace) -> None:
+    st = story.load_story(_p(a.story))
+    base = _p(a.story).parent
+    images = _p(a.images) if getattr(a, "images", None) else base / "images"
+    if a.story_cmd == "prompts":
+        out = story.write_prompts(st, base / "image_prompts.md")
+        print(f"{len(st.scenes)} Prompts -> {out}")
+    elif a.story_cmd == "check":
+        others = [story.load_story(_p(c)) for c in a.compare]
+        notes = story.check(st, images, others)
+        for n in notes:
+            print(n)
+        print(f"{len([n for n in notes if not n.startswith('INFO')])} Hinweise")
+    elif a.story_cmd == "build":
+        out_dir = _p(a.out) if a.out else base / "build"
+        story.build(st, out_dir, images_dir=images, aspect=a.aspect, scenes_spec=a.scenes, provider=a.provider,
+                    placeholder_images=a.placeholder_images, subs=a.subs, encoder=a.encoder)
+
+
 def cmd_new(a: argparse.Namespace) -> None:
     when = date.fromisoformat(a.date) if a.date else None
     folder = project.create(_p(a.root), a.title, when)
@@ -154,6 +173,27 @@ def build_parser() -> argparse.ArgumentParser:
     c.add_argument("--max-meme-seconds", type=float, default=3.0)
     c.add_argument("--strict", action="store_true", help="Exit-Code 1 bei Hinweisen")
     s.set_defaults(func=cmd_lib)
+
+    s = sub.add_parser("story", help="KI-Story-Pipeline: story.json -> Video (KI-Stimme, KI-Bilder)")
+    st_sub = s.add_subparsers(dest="story_cmd", required=True)
+    for name, help_ in (("prompts", "Bild-Prompts fuer die Szenen ausgeben"),
+                        ("check", "Tempo/Hook/Template-Pruefung (kostenlos)"),
+                        ("build", "Video bauen")):
+        t = st_sub.add_parser(name, help=help_)
+        t.add_argument("story", help="Pfad zu story.json")
+        t.add_argument("--images", help="Ordner mit scene_01.png ... (Standard: images/ neben story.json)")
+        if name == "check":
+            t.add_argument("--compare", nargs="*", default=[], help="andere story.json zum Vergleich gegen Template-Wirkung")
+        if name == "build":
+            t.add_argument("--out", help="Ausgabeordner (Standard: build/ neben story.json)")
+            t.add_argument("--aspect", choices=["16:9", "9:16"], default="16:9")
+            t.add_argument("--scenes", help="nur Szenen-Bereich, z. B. 1-6 (fuer Shorts/Teaser)")
+            t.add_argument("--provider", choices=["elevenlabs", "mock"], default="elevenlabs",
+                           help="Stimm-Anbieter; mock = stumme Testspur ohne Kosten")
+            t.add_argument("--placeholder-images", action="store_true", help="Farbflaechen statt Bilder (nur Test)")
+            t.add_argument("--subs", action=argparse.BooleanOptionalAction, default=True)
+            t.add_argument("--encoder", choices=["auto", "amf", "x264"], default="auto")
+    s.set_defaults(func=cmd_story)
 
     s = sub.add_parser("new", help="Neues Video-Projekt mit Ordnern + Skript-Vorlage anlegen")
     s.add_argument("title")
